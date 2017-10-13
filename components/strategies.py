@@ -8,14 +8,9 @@ from __future__ import division
 from __future__ import print_function
 
 
-import matplotlib.pyplot as plt
-import seaborn
 
-
-
-import indicators
-from strategy_creator import StrategyCreator
-from historical_data import HistoricalData
+from .indicators import Knoxville_div, RSI, SDC, SMA
+from .strategy_creator import StrategyCreator
 
 
 class Strategy(object):
@@ -42,7 +37,7 @@ class KDDouble(Strategy):
         # Indicators intantiation.
         extensionValue = 1 if method == 'above' else -1
                             
-        indicator1 = indicators.Knoxville_div(symbol = symbol, 
+        indicator1 = Knoxville_div(symbol = symbol, 
                                               timeframe = timeframe1, 
                                               lookback = lookback1,
                                               startDate = self.startDate,
@@ -53,7 +48,7 @@ class KDDouble(Strategy):
         indicator1.filter_indicator(level = 0, method=method)
         indicator1.adapt_to_timeframe(timeframe2)
 
-        indicator2 = indicators.Knoxville_div(symbol = symbol, 
+        indicator2 = Knoxville_div(symbol = symbol, 
                                               timeframe = timeframe2, 
                                               lookback = lookback2,
                                               startDate = self.startDate,
@@ -84,14 +79,14 @@ class RSIDouble(Strategy):
                             commission=0, swap=(0,0)):
 
         # Indicators intantiation.
-        indicator1 = indicators.RSI(symbol = symbol, 
-                                    timeframe = timeframe1, 
-                                    lookback = lookback1, 
-                                    startDate = self.startDate,
-                                    endDate = self.endDate)
+        indicator1 = RSI(symbol = symbol, 
+                            timeframe = timeframe1, 
+                            lookback = lookback1, 
+                            startDate = self.startDate,
+                            endDate = self.endDate)
         indicator1.adapt_to_timeframe(timeframe2)
         
-        indicator2 = indicators.RSI(symbol = symbol, 
+        indicator2 = RSI(symbol = symbol, 
                                     timeframe = timeframe2, 
                                     lookback = lookback2,
                                     startDate = self.startDate,
@@ -118,13 +113,13 @@ class RSI_SDC(Strategy):
                             RSIlevel, SDCrepetition, orderType=None,
                             commission=0, swap=(0,0)):
         #Indicator instantiation.
-        indicator1 = indicators.RSI(symbol = symbol, 
-                                    timeframe = timeframe, 
-                                    lookback = RSIlookback, 
-                                    startDate = self.startDate,
-                                    endDate = self.endDate)
-        indicator2 = indicators.SDC(symbol = symbol, 
-                                    timeframe = timeframe) 
+        indicator1 = RSI(symbol = symbol, 
+                            timeframe = timeframe, 
+                            lookback = RSIlookback, 
+                            startDate = self.startDate,
+                            endDate = self.endDate)
+        indicator2 = SDC(symbol = symbol, 
+                            timeframe = timeframe) 
                                     
         # OS/OB condition and number of repetitions.
         indicator1.filter_indicator(level = RSIlevel, method = RSImethod)
@@ -149,21 +144,21 @@ class SmaKnoxville(Strategy):
                             commission=0, swap=(0,0)):
         
         #Indicator instantiation.
-        indicator1 = indicators.SMA(symbol = symbol, 
-                                    timeframe = timeframe, 
-                                    lookback = SMAlookback,
-                                    startDate = self.startDate,
-                                    endDate = self.endDate)
+        indicator1 = SMA(symbol = symbol, 
+                            timeframe = timeframe, 
+                            lookback = SMAlookback,
+                            startDate = self.startDate,
+                            endDate = self.endDate)
 
                                                                        
         indicator1.filter_indicator(level = indicator1.prices.Close, 
                                     method = SMAmethod)
                                     
-        indicator2 = indicators.Knoxville_div(symbol = symbol, 
-                                              timeframe = timeframe, 
-                                              lookback = KDlookback,
-                                              startDate = self.startDate,
-                                              endDate = self.endDate)
+        indicator2 = Knoxville_div(symbol = symbol, 
+                                      timeframe = timeframe, 
+                                      lookback = KDlookback,
+                                      startDate = self.startDate,
+                                      endDate = self.endDate)
         indicator2.filter_indicator(level = 0, method = KDmethod)
 
         # Deleting heavy dataframes.

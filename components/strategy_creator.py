@@ -14,8 +14,8 @@ from copy import copy
 from matplotlib import pyplot as plt
 import seaborn as sns
 
-from historical_data import HistoricalData
-from custom_functions import round_to_multiple, max_argmax_df
+from .historical_data import HistoricalData
+from .scripts.custom_functions import round_to_multiple, max_argmax_df
 
 
 
@@ -355,7 +355,7 @@ class StrategyCreator():
         # Filter according to the occurence number and lookback.
         if lookback > 0:
             occurrence = []
-            for i in xrange(len(self.signals.index)):
+            for i in range(len(self.signals.index)):
                 counter = 1
                 while counter != False:
                     try:

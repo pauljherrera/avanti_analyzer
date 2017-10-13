@@ -17,11 +17,10 @@ from os.path import exists
 import datetime as dt
 import gc
 
-sys.path.append('scripts')
-from historical_data import HistoricalData
-from KnoxPy import relative_strength, Knoxpy_df2, MOM
-from csv_handler import CsvHandler
-import custom_functions as cf
+from .historical_data import HistoricalData
+from .scripts.KnoxPy import relative_strength, Knoxpy_df2, MOM
+from .csv_handler import CsvHandler
+from .scripts import custom_functions as cf
 
 
 

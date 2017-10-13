@@ -68,11 +68,13 @@ class SortinoTwoVariablesVisitor(SortinoPerformanceVisitor):
         df.sort_index(axis=1, inplace=True)
         
         # Setting the variable names as column and index names.
-        df.index.set_names(visited.optimization.keys()[0].split(',')[0].split('_')[0], inplace=True)
-        df.columns.set_names(visited.optimization.keys()[0].split(',')[1].split('_')[0], inplace=True)
+        df.index.set_names(list(visited.optimization.keys())[0].split(',')[0].split('_')[0], 
+                           inplace=True)
+        df.columns.set_names(list(visited.optimization.keys())[0].split(',')[1].split('_')[0], 
+                             inplace=True)
         
         #Populate the performance matrix.
-        for key, value in visited.optimization.iteritems():
+        for key, value in list(visited.optimization.items()):
             x = int(key.split(',')[0].split('_')[1])\
                 if str(key.split(',')[0].split('_')[1]).isdigit()\
                 else key.split(',')[0].split('_')[1] 

@@ -13,9 +13,10 @@ import copy
 import datetime as dt
 import gc
 
+from functools import reduce
 
-from performance_visitor import SortinoTwoVariablesVisitor, SortinoThreeVariablesVisitor
-from strategies import SmaKnoxville
+from .performance_visitor import SortinoTwoVariablesVisitor, SortinoThreeVariablesVisitor
+from .strategies import SmaKnoxville
 
 
 class Optimizer():
@@ -81,9 +82,9 @@ class TwoVariablesOpt(Optimizer):
         # Optimization loop
         key1, key2 = tuple(variableParameters.keys())
 
-        for var1 in variableParameters.values()[0]:
+        for var1 in list(variableParameters.values())[0]:
 
-            for var2 in variableParameters.values()[1]:
+            for var2 in list(variableParameters.values())[1]:
                 print('-----------------------------------------------------------')
                 print('Optimization {} of {}'.format(i, optNum))
                 print('Processing variables: {}, {}'.format(var1, var2))

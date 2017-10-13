@@ -10,7 +10,7 @@ from __future__ import print_function
 
 from copy import copy
 
-from persistance import Pickler
+from .persistance import Pickler
 
 
 

@@ -10,8 +10,8 @@ from __future__ import print_function
 
 
 
-from custom_functions import  max_argmax_df, min_argmin_df
-from custom_functions import max_argmax_panel, min_argmin_panel
+from .scripts.custom_functions import  max_argmax_df, min_argmin_df
+from .scripts.custom_functions import max_argmax_panel, min_argmin_panel
 
 
 class optimizationAnalyzer(object):

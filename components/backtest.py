@@ -17,7 +17,7 @@ from copy import copy
 import datetime as dt
 
 
-from strategies import SmaKnoxville
+from .strategies import SmaKnoxville
 
 
 class Backtest(object):
@@ -236,7 +236,7 @@ if __name__ == "__main__":
                   'SMAmethod' : 'below',
                   'KDmethod' : 'above'}
 
-    bt = Backtest(SmaKnoxville(startDate = dt.date(2010,01,01), 
+    bt = Backtest(SmaKnoxville(startDate = dt.date(2010,1,1), 
                                 endDate = dt.date(2013,12,31)),
                   commission=20)
     bt.generate_backtest(parameters, 'BUY', 20, divide=1)

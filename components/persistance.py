@@ -8,7 +8,7 @@ Created on Mon Jan 09 11:20:47 2017
 from __future__ import division
 from __future__ import print_function
 
-import cPickle as pk
+import _pickle as pk
 from os.path import join
 
 
@@ -24,7 +24,7 @@ class Pickler(object):
         if name: 
             self._name = name
         
-        with open(join(path, self._name), 'w') as outputFile:
+        with open(join(path, self._name), 'wb') as outputFile:
             pk.dump(obj, outputFile)
             
             
@@ -32,7 +32,7 @@ class Pickler(object):
         if name: 
             self._name = name
         
-        with open(join(path, self._name), 'r') as outputFile:
+        with open(join(path, self._name), 'rb') as outputFile:
             return pk.load(outputFile)
         
         

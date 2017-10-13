@@ -2,7 +2,7 @@
 """
 Created on Thu Oct 06 10:36:53 2016
 
-@author: forex
+@author: Paúl Herrera
 """
 
 from __future__ import division
@@ -15,15 +15,15 @@ from pprint import pprint
 import sys
 import gc
 
-from optimizer import TwoVariablesOpt, ThreeVariablesOpt
-from backtest import Backtest
-from optimization_analyzer import TwoVariablesOptimizationAnalyzer
-from performance_visitor import SortinoTwoVariablesVisitor, SortinoThreeVariablesVisitor
-from strategies import SmaKnoxville, KDDouble, RSI_SDC
-from walkforward_visitor import LoopVisitor, WalkforwardVisitor
-from optimization_reporter import OptimizationReporterBridge, MatrixScreenReporter, BacktestReporterBridge
-from walkforward_persistance_builder import WalkforwardPersistanceBuilder
-from custom_functions import notification
+from .optimizer import TwoVariablesOpt, ThreeVariablesOpt
+from .backtest import Backtest
+from .optimization_analyzer import TwoVariablesOptimizationAnalyzer
+from .performance_visitor import SortinoTwoVariablesVisitor, SortinoThreeVariablesVisitor
+from .strategies import SmaKnoxville, KDDouble, RSI_SDC
+from .walkforward_visitor import LoopVisitor, WalkforwardVisitor
+from .optimization_reporter import OptimizationReporterBridge, MatrixScreenReporter, BacktestReporterBridge
+from .walkforward_persistance_builder import WalkforwardPersistanceBuilder
+from .scripts.custom_functions import notification
 
 
 class Walkforward(object):

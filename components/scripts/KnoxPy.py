@@ -12,12 +12,17 @@ evaluando la divergencia.
 
 """
 
+from __future__ import print_function
+
+
 import numpy as np
 import pandas as pd
 import time
-import cdiv
+#import cdiv
 
 from tqdm import tqdm
+
+
       
 t0 = time.time()
 
@@ -78,8 +83,8 @@ def pyDiv(df, KDPeriod, MinPeriod):
     Low = list(df["Low"])
     Div = np.empty_like(Close, dtype=int)
     Div[:] = 0
-    Iteration = xrange(KDPeriod+1,len(Momentum))
-    PeriodIter = xrange(MinPeriod,KDPeriod+1)
+    Iteration = range(KDPeriod+1,len(Momentum))
+    PeriodIter = range(MinPeriod,KDPeriod+1)
     
     #Iteration for each bar
     for i in Iteration:
@@ -88,13 +93,13 @@ def pyDiv(df, KDPeriod, MinPeriod):
             if (Momentum[i] < Momentum[i-j]):
                 if (Close[i] > Close[i-j]):
                     if High[i] >= max(High[i-j:i]):
-                        if len(filter(lambda x: x > 70, RSI[i-j:i+1])) > 0:
+                        if len(list(filter(lambda x: x > 70, RSI[i-j:i+1]))) > 0:
                             Div[i] = -1
                             break
             elif (Momentum[i] > Momentum[i-j]):
                 if (Close[i] < Close[i-j]):
                     if Low[i] <= min(Low[i-j:i]):
-                        if len(filter(lambda x: x < 30, RSI[i-j:i+1])) > 0:
+                        if len(list(filter(lambda x: x < 30, RSI[i-j:i+1]))) > 0:
                             Div[i] = 1
                             break
     
@@ -116,38 +121,34 @@ def Knoxpy(DataFile, lookback=30, verbose=True):
     df.set_index(['Date', 'Time'], inplace=True)
     del df['Vol']
     if verbose == True:
-        print "Csv read in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("Csv read in %r seconds" % round((time.time() - t1273648195), 2))
        
     #Calling functions
     
     t1273648195 = time.time()
     MOM(df, MomentumPeriod)
     if verbose == True:
-        print "Momentum analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print("Momentum analized in %r seconds" % round((time.time() - t1273648195), 2))
     
     t1273648195 = time.time()
     RSIndex(df, RSIPeriod)
     if verbose == True:
-        print "RSI analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print("RSI analized in %r seconds" % round((time.time() - t1273648195), 2))
 
   
     t1273648195 = time.time()
+    pyDiv(df, KDPeriod=lookback, MinPeriod=4)
     cdiv.cDiv(df, KDPeriod=lookback, MinPeriod=4)
     
 #    kd_generator(df, KDPeriod=lookback, MinPeriod=4)
     if verbose == True:
-        print "Knoxpyed in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print("Knoxpyed in %r seconds" % round((time.time() - t1273648195), 2))
 
     #Dropping NANs (Deprecated because caused problems with the backtester)
     #df = df.dropna()
     
     if verbose == True:
-        print "Total time was %r seconds" % round((
-                                        time.time() - t998324756767), 2)
+        print("Total time was %r seconds" % round((time.time() - t998324756767), 2))
 
     return df
     
@@ -159,29 +160,29 @@ def Knoxpy_df(df, lookback=30, verbose=False):
     t1273648195 = time.time()
     MOM(df, MomentumPeriod)
     if verbose == True:
-        print "Momentum analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("Momentum analized in %r seconds" % round((
+                                            time.time() - t1273648195), 2))
     
     t1273648195 = time.time()
     RSIndex(df, RSIPeriod)
     if verbose == True:
-        print "RSI analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("RSI analized in %r seconds" % round((
+                                            time.time() - t1273648195), 2))
 
-    import cdiv
   
     t1273648195 = time.time()
+    pyDiv(df, lookback, MinPeriod=4)
     cdiv.cDiv(df, lookback, MinPeriod=4)
     if verbose == True:
-        print "Knoxpyed in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("Knoxpyed in %r seconds" % round((
+                                            time.time() - t1273648195), 2))
 
     #Dropping NANs
     df = df.dropna()
     
     if verbose == True:
-        print "Total time was %r seconds" % round((
-                                        time.time() - t998324756767), 2)
+        print ("Total time was %r seconds" % round((
+                                        time.time() - t998324756767), 2))
 
     return df
 
@@ -205,21 +206,21 @@ def Knoxpy_df2(prices, lookback=30, verbose=False):
     t1273648195 = time.time()
     MOM(prices, MomentumPeriod=20)
     if verbose == True:
-        print "Momentum analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("Momentum analized in %r seconds" % round((
+                                            time.time() - t1273648195), 2))
     
     t1273648195 = time.time()
     RSIndex(prices, RSIPeriod=21)
     if verbose == True:
-        print "RSI analized in %r seconds" % round((
-                                            time.time() - t1273648195), 2)
+        print ("RSI analized in %r seconds" % round((
+                                            time.time() - t1273648195), 2))
     
     t1273648194 = time.time()
-#    pyDiv(prices, lookback, MinPeriod=4)
-    cdiv.cDiv(prices, lookback, MinPeriod=4)
+    pyDiv(prices, lookback, MinPeriod=4)
+#    cdiv.cDiv(prices, lookback, MinPeriod=4)
     if verbose == True:
-        print "Knoxpyfied in %r seconds" % round((
-                                            time.time() - t1273648194), 2)
+        print ("Knoxpyfied in %r seconds" % round((
+                                            time.time() - t1273648194), 2))
 
     #creating df
     df = pd.DataFrame(index=prices.index)
@@ -232,8 +233,8 @@ def Knoxpy_df2(prices, lookback=30, verbose=False):
     df = df.dropna()
     
     if verbose == True:
-        print "Total time was %r seconds" % round((
-                                        time.time() - t998324756767), 2)
+        print ("Total time was %r seconds" % round((
+                                        time.time() - t998324756767), 2))
 
     return df
 
@@ -305,7 +306,7 @@ def kd_generator(df, KDPeriod=30, MinPeriod=4):
 
 if __name__ == "__main__":
     #Inputs-----------------------------------------------------------------------
-    DataFile = "../csv/EURUSD_H1_UTC+0_00_noweekends.csv"
+    DataFile = "../../csv/EURUSD_M15_UTC+0_00_noweekends.csv"
     MomentumPeriod = 20
     RSIPeriod = 21
     KDPeriod = 30    #This is the Knoxville Divergence Period
@@ -319,7 +320,7 @@ if __name__ == "__main__":
     df.set_index(['Date', 'Time'], inplace=True)
     del df['Vol']
     
-    df = Knoxpy_df2(df, KDPeriod)
+    df = Knoxpy_df2(df, KDPeriod, verbose=True)
 
 
                         

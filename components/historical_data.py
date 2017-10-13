@@ -13,10 +13,8 @@ from os import path as pt
 import datetime as dt
 from copy import copy
 from scipy import stats
-import sys
 
-sys.path.append('scripts')
-import custom_functions as cf
+from .scripts import custom_functions as cf
 
 
 class HistoricalData(object):
