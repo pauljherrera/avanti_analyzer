@@ -15,7 +15,7 @@ import datetime as dt
 import pandas as pd
 import os
 import cPickle as pickle
-from pygame import mixer
+#from pygame import mixer
 
 
 def adapt_to_timeframe(df, time1,time2):
@@ -319,9 +319,9 @@ def notification(path='sounds', name='sound01.mp3'):
     """
     Plays a notification sound using the pygame mixer.
     """
-    mixer.init()
-    mixer.music.load(os.path.join(path, name))
-    mixer.music.play()    
+#    mixer.init()
+#    mixer.music.load(os.path.join(path, name))
+#    mixer.music.play()    
     
     
 def plot_matrix(matrix, method='lines', view=(5,-25)):

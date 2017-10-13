@@ -342,18 +342,18 @@ if __name__ == "__main__":
     """
     symbols = [
 #        'AUDCAD', 
-        'AUDJPY', 
-        'AUDUSD', 
-        'EURAUD', 
-        'EURCAD', 
-        'EURGBP', 
-        'EURJPY', 
-        'EURUSD', 
-        'GBPUSD', 
-        'NZDUSD', 
-        'USDCAD', 
-        'USDCHF', 
-        'USDJPY', 
+#        'AUDJPY', 
+#        'AUDUSD', 
+#        'EURAUD', 
+#        'EURCAD', 
+#        'EURGBP', 
+#        'EURJPY', 
+        'BTCUSD', 
+#        'GBPUSD', 
+#        'NZDUSD', 
+#        'USDCAD', 
+#        'USDCHF', 
+#        'USDJPY', 
     ]
     
     path = 'walkforwards'
@@ -361,8 +361,8 @@ if __name__ == "__main__":
     for s in symbols:
         print('\nWORKING ON {}'.format(s))        
         
-        startDate = dt.date(2004,1,1)
-        endDate = dt.date(2016,12,31)
+        startDate = dt.date(2015,1,31)
+        endDate = dt.date(2017,8,26)
         eventLookback = 15
         outOfSamples = 5
         fixed = {
@@ -374,9 +374,8 @@ if __name__ == "__main__":
                  
                  
         variables = {
-                    'RSIlevel' : [58,61,64,67,70,73],
-#                     'RSIlevel' : [42,39,36,33],
-                     'SDCrepetition' : [2,3,4,5,6],
+                    'RSIlevel' : [39,36,33,30],
+                     'SDCrepetition' : [-3,-4,-5],
                     }
     
         
@@ -386,9 +385,9 @@ if __name__ == "__main__":
                          WalkforwardVisitor(BacktestReporterBridge()),
                          TwoVariablesOptimizationAnalyzer(),
                          startDate, endDate, numOutOfSamples=outOfSamples,
-                         commission=20)
+                         commission=50)
         wf.walkforward(fixed, variables, eventLookback=eventLookback, 
-                       preoptimize=False, plot=False)
+                       preoptimize=False, plot=True)
 
         name = '{}'.format(fixed['symbol']) \
                 + '_{}'.format(fixed['timeframe']) \

@@ -94,7 +94,7 @@ class HistoricalData(object):
         Gets the current symbol number of decimals after the comma.
         """
         decimals = map(lambda x: str(Series.iloc[x]).split('.')[1], 
-                   xrange(len(Series))) 
+                   range(len(Series))) 
         decimals = [len(x) for x in decimals]
         decimals = stats.mode(decimals)[0][0]
         return decimals
