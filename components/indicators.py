@@ -24,11 +24,9 @@ from .scripts import custom_functions as cf
 
 
 
-"""
-Superclass: Indicator. Used like an abstract superclass.
-"""
 class Indicator(HistoricalData):
     """
+    Used like an abstract superclass.
     """
     def __init__(self, symbol, timeframe, lookback=None, path='csv', 
                  startDate=None, endDate=None):
@@ -162,6 +160,7 @@ class Indicator(HistoricalData):
              
     def update_name(self, element, methodName="", filterName=None):
         """
+        Changes the name of the indicator and the csv file name.
         """
         if filterName == None:
             if type(element)==int:
@@ -181,6 +180,9 @@ Subclasses: all the indicators
 
 class Knoxville_div(Indicator):
     """
+    Knoxville Divergence indicator.
+    Uses Momentum Divergence and RSI oversold/overbought values 
+    to foresee a turn in the price.
     """
     def __init__(self, symbol, timeframe, lookback, path='csv',
                  startDate=None, endDate=None):       
@@ -196,6 +198,7 @@ class Knoxville_div(Indicator):
 
 class Momentum(Indicator):
     """
+    Traditional Momentum indicator.
     """
     def __init__(self, symbol, timeframe, lookback=14, path='csv',
                  startDate=None, endDate=None):
@@ -211,6 +214,7 @@ class Momentum(Indicator):
                    
 class RSI(Indicator):
     """
+    Traditional RSI indicator.
     TODO: the RSI calculation differs a little bit from the MT4 RSI calculation.
     """
     def __init__(self, symbol, timeframe, lookback=14, path='csv',
@@ -252,6 +256,7 @@ class SDC(Indicator):
               
 class SMA(Indicator):
     """
+    Simple Moving Average.
     """
     def __init__(self, symbol, timeframe, lookback, path='csv', 
                  startDate=None, endDate=None):

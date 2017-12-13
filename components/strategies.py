@@ -29,6 +29,7 @@ class Strategy(object):
 
 class KDDouble(Strategy):
     """
+    Presence of a Knoxville Divergence in two different timeframes.
     """
     def initialize_strategy(self, symbol, timeframe1, lookback1, extension1,
                             timeframe2, lookback2, extension2, 
@@ -72,6 +73,7 @@ class KDDouble(Strategy):
     
 class RSIDouble(Strategy):
     """
+    Presence of RSI overbought/oversold in two different timeframes.
     """
     def initialize_strategy(self, symbol, timeframe1, lookback1,
                             timeframe2, lookback2, 
@@ -109,6 +111,10 @@ class RSIDouble(Strategy):
         
                                     
 class RSI_SDC(Strategy):
+    """
+    Combine the presence of a number of candles in the same direction and
+    oversold/overbought status of the RSI.
+    """
     def initialize_strategy(self, symbol, timeframe, RSIlookback, RSImethod,
                             RSIlevel, SDCrepetition, orderType=None,
                             commission=0, swap=(0,0)):
@@ -138,6 +144,8 @@ class RSI_SDC(Strategy):
 
 class SmaKnoxville(Strategy):
     """
+    Sends a buy/sell signal when a Knowville Divergence occurs
+    below/above a SMA.
     """
     def initialize_strategy(self, symbol, timeframe, SMAlookback, KDlookback,
                             SMAmethod, KDmethod, orderType=None,
