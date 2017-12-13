@@ -153,6 +153,10 @@ class HistoricalData(object):
         return self.prices
         
     def turn_prices_into_integers(self):
+    	¨¨¨
+    	All the financial calculations are made using integers and not
+    	floating points to avoid innacuracies.
+    	¨¨¨
         self.prices['Open'] = self.prices.Open.apply(lambda x: int(x * pow(10, 
                                                             (self.decimals))))
         self.prices['High'] = self.prices.High.apply(lambda x: int(x * pow(10, 

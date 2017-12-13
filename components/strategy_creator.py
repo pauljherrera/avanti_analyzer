@@ -556,6 +556,7 @@ class StrategyCreator():
                         stats=True, showExamples = 25, 
                         color = '#793471'):
         """
+        Plots all the event studies.
         """
         plt.figure(1, figsize = (11, 6.5))
         plt.title('All events')
