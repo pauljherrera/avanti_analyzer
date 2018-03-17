@@ -32,13 +32,20 @@ class Indicator(HistoricalData):
                  startDate=None, endDate=None):
         HistoricalData.__init__(self, symbol, timeframe, path, startDate,
                  endDate)
+
+        #print("PRICES")
+        #print(self.prices)
         if lookback: 
             self.lookback = int(lookback)
         self.adapted = False
         
         # Indicator calculation
         self.indicator = self.get_prices_datetime() #HistoricalData method.
+        #print("UP1")
+        #print(self.indicator)
         self.indicator['Value'] = self.calculate_indicator() 
+        #print("DOWN1")
+        #print(self.indicator)
         
         
     def __repr__(self):
@@ -92,6 +99,7 @@ class Indicator(HistoricalData):
                  crossover.
         TODO: update. Doesn't have 'store' nor limit dates.
         """
+        print("EXT ",extensionPeriod)
         indexes = [(x, x+extensionPeriod) for x 
                    in indicator[indicator.Value == value].index]
         for x,y in indexes:
@@ -118,7 +126,8 @@ class Indicator(HistoricalData):
         """
         # Update name and csvFile
         self.update_name(level, method, filterName)
-
+        #print("UP")
+        #print(self.indicator)
         # Indicator calculation
         if method == 'above':
             self.indicator =\
@@ -266,8 +275,11 @@ class SMA(Indicator):
 
             
     def calculate_indicator(self):
-        return self.prices.Close.rolling(window=self.lookback, 
+        sma_df = self.prices.Close.rolling(window=self.lookback, 
                                          center=False).mean()
+        #print("SMA ",self. lookback)
+        #print(sma_df)
+        return sma_df
 
 
 if __name__ == "__main__":
@@ -275,7 +287,7 @@ if __name__ == "__main__":
     """
     ind = Knoxville_div('GBPUSD', 'D1', 30)
     mom = Momentum('GBPUSD', 'D1', 20)
-
+ 
 
 
 

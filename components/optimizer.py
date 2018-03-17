@@ -97,6 +97,7 @@ class TwoVariablesOpt(Optimizer):
                 # Initializing the strategy and its event studies.
                 strategy = self.strategy.initialize_strategy(commission=self.commission,
                            swap=self.swap, **parameters)
+        
                 strategy.generate_optimized_event_study(commission=commission, 
                                                      swap=swap, plot=plot,
                                                      lookback = eventLookback)
@@ -111,7 +112,7 @@ class TwoVariablesOpt(Optimizer):
 
         # Accept a visit to generate performance matrix.
         self._acceptVisit()        
-            
+        
 
 class ThreeVariablesOpt(Optimizer):
     """

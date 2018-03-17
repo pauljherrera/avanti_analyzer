@@ -269,7 +269,9 @@ def max_argmax_df(df, ordinal=1):
         df = df[df != max(df.max())]
         i += 1
     
-    # Main part of the algorithm. Looking max and argmax.        
+    # Main part of the algorithm. Looking max and argmax.
+    #df = df.replace([np.inf, -np.inf], np.nan)
+    #df.dropna(inplace=True)      
     maximum = max(df.max())
     col = df.max().idxmax()
     idx = df.idxmax()[col]

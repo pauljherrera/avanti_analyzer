@@ -33,12 +33,13 @@ if __name__ == "__main__":
 #        'EURCAD', 
 #        'EURGBP', 
 #        'EURJPY', 
-        'BTCUSD', 
+#        'BTCUSD', 
 #        'GBPUSD', 
 #        'NZDUSD', 
 #        'USDCAD', 
 #        'USDCHF', 
-#        'USDJPY', 
+#        'USDJPY',
+         'EURUSD'
     ]
     
     path = 'walkforwards'
@@ -46,24 +47,24 @@ if __name__ == "__main__":
     for s in symbols:
         print('\nWORKING ON {}'.format(s))        
         
-        startDate = dt.date(2015,1,31)
-        endDate = dt.date(2017,8,26)
+        startDate = dt.date(2010,1,31)
+        endDate = dt.date(2016,8,26)
         eventLookback = 15
         outOfSamples = 5
         fixed = {
                  'symbol' : s,
-                 'timeframe' : 'M15',
+                 'timeframe' : 'D1',
                  'RSIlookback' : 14,
                  'RSImethod' : 'above',
                  }
-                 
                  
         variables = {
                     'RSIlevel' : [39,36],
                      'SDCrepetition' : [-3,-4],
                     }
-    
         
+
+    
         wf = SimpleWalkforward(RSI_SDC, TwoVariablesOpt, Backtest,
                          SortinoTwoVariablesVisitor, 
                          LoopVisitor(OptimizationReporterBridge(MatrixScreenReporter())),
@@ -71,6 +72,7 @@ if __name__ == "__main__":
                          TwoVariablesOptimizationAnalyzer(),
                          startDate, endDate, numOutOfSamples=outOfSamples,
                          commission=50)
+        
         wf.walkforward(fixed, variables, eventLookback=eventLookback, 
                        preoptimize=False, plot=True)
 
@@ -79,7 +81,7 @@ if __name__ == "__main__":
                 + '_RSI{}{}'.format(fixed['RSIlookback'], fixed['RSImethod']) \
                 + '_SDC' \
                 + '_{}oos_lb{}.pkl'.format(outOfSamples, eventLookback)
-        
+        print(name)
         WalkforwardPersistanceBuilder(wf).save(path, name)
         
         

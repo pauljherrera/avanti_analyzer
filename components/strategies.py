@@ -158,10 +158,10 @@ class SmaKnoxville(Strategy):
                             startDate = self.startDate,
                             endDate = self.endDate)
 
-                                                                       
+                                                           
         indicator1.filter_indicator(level = indicator1.prices.Close, 
                                     method = SMAmethod)
-                                    
+        
         indicator2 = Knoxville_div(symbol = symbol, 
                                       timeframe = timeframe, 
                                       lookback = KDlookback,

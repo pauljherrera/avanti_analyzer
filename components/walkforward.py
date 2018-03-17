@@ -47,6 +47,7 @@ class Walkforward(object):
         self.swap = swap        
         
         self._calculateCalendar(numOutOfSamples, ratio)
+        print(self.calendar)
 
 
     def accept_visit_backtest(self):
@@ -115,7 +116,7 @@ class Walkforward(object):
                 first = False
                 if self.__class__ == Preoptimize: # Ends the optimization in
                     break                         # case of a preoptimization. (This is a hack :( )
-
+            
             gc.collect()
             i += 1
 
@@ -143,7 +144,7 @@ class Walkforward(object):
         print('Maximum amount of events: {}'.format(maxEvents))
         
         if self.__class__ != Preoptimize:
-            cont = raw_input('Continue with the optimization? (y/n): ')
+            cont = input('Continue with the optimization? (y/n): ')
             if cont == 'n': sys.exit('')
         
 
@@ -319,6 +320,7 @@ class SimpleWalkforward(Walkforward):
         self._optimize(fixedParameters, variableParameters, eventLookback,
                        preoptimize=preoptimize, plot=plot)
         
+        
         print('\n' + '-' * 60)
         print('Optimizations report')
         self.accept_visit_optimization()
@@ -334,7 +336,7 @@ class SimpleWalkforward(Walkforward):
         pprint(self.backtestFinal.stats)
         
         notification()
-
+        
     
 if __name__ == "__main__":
     """

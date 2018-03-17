@@ -28,7 +28,8 @@ class StrategyCreator():
                  commission = 0, swap = (0,0), indicatorsList = None,
                  forceOrderType = False, adapt=False):
         self.base = HistoricalData(outputSymbol, outputTimeframe)
-
+        self.symbol = outputSymbol
+        self.timeframe = outputTimeframe
         self.orderType = orderType
         self.commission = commission
         self.swap = (round(float(swap[0])/self.base.barsPerDay, 3), 
@@ -77,6 +78,7 @@ class StrategyCreator():
                                eventSignals.index}
                                                                                            
         self._eventsStandard = pd.DataFrame.from_dict(self._eventsStandard)
+
         self._eventsStandard.index = range(eventwindow[0],eventwindow[1]+1)
         
 #        # Calculate stats without commissions
@@ -332,13 +334,15 @@ class StrategyCreator():
             filtered = copy(self.adaptedPrices)
         else:
             filtered = copy(self.base.prices)
+
         keys = self.indicators.keys()
         
         for k in keys:
             # Main filter: coincidence of Datetimes
             filtered = filtered[(
                 filtered.Datetime.isin(self.indicators[k].indicator.Datetime))]
-        
+
+
         # Giving signals form.
         self.signals = pd.DataFrame({'Datetime' : filtered.Datetime,
                                      'Symbol' : copy(self.base.symbol),
@@ -346,7 +350,8 @@ class StrategyCreator():
                                      'Price' : filtered.Close})
         self.signals = self.signals[['Datetime', 'Symbol', 'Order_type', 
                                      'Price']]
-
+        #print("SENIALLLLL")
+        #print(self.signals)
         # In case the base prices of the strategy has been adapted,
             # it's necessary to change the Datetime to the original one.
         if self.base.adapted == True:
@@ -369,8 +374,7 @@ class StrategyCreator():
                             # If it isn't, the occurrence number is stored.
                             occurrence.append(counter)
                             counter = False
-                    except: 
-                        print(self.signals)
+                    except:
                         raise IndexError('index -2 is out of bounds for axis 0 with size 1')
             self.signals['Occurrence'] = occurrence
             

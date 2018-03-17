@@ -14,7 +14,7 @@ import datetime as dt
 from copy import copy
 from scipy import stats
 
-from .scripts import custom_functions as cf
+from scripts import custom_functions as cf
 
 
 class HistoricalData(object):
@@ -29,7 +29,7 @@ class HistoricalData(object):
                  endDate=None):
         self.symbol = symbol
         self.timeframe = timeframe
-        self.barsPerDay = self.get_bars_per_day(timeframe)
+        self.barsPerDay = self.get_bars_per_day(self.timeframe)
         self.read_prices(symbol, timeframe, path)
         self.decimals = self.get_decimals(self.prices.Close.iloc[-300:]) 
                                 # The [-300:] is ther to improve performance
@@ -54,7 +54,8 @@ class HistoricalData(object):
 
     def __repr__(self):
         try:        
-            print(self.prices)
+            #print(self.prices)
+            return str(self.prices)
         except:
             pass
         
@@ -92,7 +93,8 @@ class HistoricalData(object):
         Gets the current symbol number of decimals after the comma.
         """
         decimals = map(lambda x: str(Series.iloc[x]).split('.')[1], 
-                   range(len(Series))) 
+                   range(len(Series)))
+        decimals = list(decimals)
         decimals = [len(x) for x in decimals]
         decimals = stats.mode(decimals)[0][0]
         return decimals
@@ -130,6 +132,7 @@ class HistoricalData(object):
         """
         """
         fileName = symbol + '_' + timeframe + '_UTC+0_00_noweekends.csv'
+        print(pt.join(path, fileName))
         self.prices = read_csv(pt.join(path, fileName), header=None)
 
         # Assigning header.        
@@ -149,7 +152,6 @@ class HistoricalData(object):
         cols = self.prices.columns.tolist()        
         cols = cols[-1:] + cols[:-1]
         self.prices = self.prices[cols]
-        
         return self.prices
         
     def turn_prices_into_integers(self):
@@ -169,9 +171,9 @@ class HistoricalData(object):
 
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     
-    a = HistoricalData('EURUSD', 'M15')
+#    a = HistoricalData('EURUSD', 'M15')
     
     
     

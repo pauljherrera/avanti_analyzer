@@ -9,7 +9,6 @@ from __future__ import division
 from __future__ import print_function
 
 from copy import copy
-
 from .persistance import Pickler
 
 
@@ -24,8 +23,8 @@ class WalkforwardPersistanceBuilder(object):
     def __init__(self, walkforward=None, persistor=Pickler()):
         
         if walkforward:
-            self.backtest = copy(walkforward.backtestFinal.backtest)
-            self.stats = copy(walkforward.backtestFinal.stats)
+            #self.backtest = copy(walkforward.backtestFinal.backtest)
+            #self.stats = copy(walkforward.backtestFinal.stats)
             
             self.calendar = copy(walkforward.calendar)
             self.performanceMatrices = [copy(x.performanceMatrix) for x 
