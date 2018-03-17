@@ -14,7 +14,7 @@ import datetime as dt
 from copy import copy
 from scipy import stats
 
-from scripts import custom_functions as cf
+#from scripts import custom_functions as cf
 
 
 class HistoricalData(object):
